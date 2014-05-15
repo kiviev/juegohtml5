@@ -29,5 +29,5 @@ canvas{
 .contenedorjuego{
 	height: 400px;
 	width: 800px;
-	background: red;
+	margin: 3em auto;
 }

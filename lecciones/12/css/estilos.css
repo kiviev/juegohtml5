@@ -22,12 +22,6 @@ body{
 }
 canvas{
 	border: solid 1px;
-	width: 100%;
-	height: 100%;
-
-}
-.contenedorjuego{
-	height: 400px;
-	width: 800px;
-	background: red;
+	/*min-width: 90%;
+	margin: 0 auto;*/
 }

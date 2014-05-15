@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>00 Animación Básica </title>
+<title>11 Animación Básica </title>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
@@ -16,22 +16,46 @@
 	<input type="button" value="iniciar" id="boton">
 	<script type="text/javascript">
 	window.addEventListener('load',init);
-	var velocidad = 5;
+	var velocidad = 10;
 	var direccion= velocidad, iniciar=false,x=50, y =10;
 	var intervalo;
 	function init(){
 		
 		var canvas= document.getElementById('miCanvas');
 		var ctx= canvas.getContext('2d');
+		ctx.fillStyle='rgb(200,0,0)';
+		ctx.arc(x,y,10,0,7);
+		ctx.fill();
 
 		document.getElementById('boton').addEventListener('click',function(){
-
+			if(iniciar){
+				this.value="Iniciar";
+				window.clearInterval(intervalo);
+				iniciar=false;
+			}else{
+				this.value= "Detener";
+				intervalo= window.setInterval(function(){
+					moveAndDraw(canvas,ctx);
+				iniciar=true;
+				},32);
+			}
 		})
 
 
 		console.log("cargado");
 	}
-	function draw(canvas,ctx)
+	function draw(canvas,ctx){
+		canvas.width=canvas.width;// limpiar el canvas, una manera, pero de esta manera se carga el fill, por eso hay que ponerlo debajo , para que cada vez que se ejecute la funcion se le de el fillStyle de la bola
+		ctx.fillStyle='rgb(200,0,0)';
+		ctx.arc(x,y,10,0,7);
+		ctx.fill();
+	}
+	function moveAndDraw(canvas,ctx){
+		if(y > (canvas.height - 20)){direccion =  -velocidad}
+		if(y < (20)){direccion= velocidad}
+		y+= direccion;
+		draw(canvas,ctx,x,y)
+	}
 
 	</script>
 </body>

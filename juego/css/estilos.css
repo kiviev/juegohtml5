@@ -19,6 +19,7 @@
 body{
 	font-family: "Chalet";
 	font-size: 2em;
+	background: #c5c5c5;
 }
 canvas{
 	border: solid 1px;
@@ -29,5 +30,16 @@ canvas{
 .contenedorjuego{
 	height: 400px;
 	width: 800px;
-	background: red;
+	margin: 3em auto;
+	
+}
+.sombra{
+    -moz-box-shadow:  0 20px 10px -10px rgba(20,20,20,.8);
+    -webkit-box-shadow:  0 20px 10px -10px rgba(20,20,20,.8);
+    box-shadow:  0 20px 10px -10px rgba(20,20,20,.8);
+}
+.redondea{
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }

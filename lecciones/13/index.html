@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>13 Manejo de Arreglos </title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript" src="js/js.js"></script>
+</head>
+<body>
+	<div id="mostrar"></div>
+	<script type="text/javascript">
+	window.addEventListener('load',init);
+
+	var arreglo1=new Array();
+	var arreglo2=[];
+	var arreglo0=[1,2,3];
+
+	function init(){
+		arreglo0.push(4);
+ 	var mostrar= document.getElementById('mostrar');
+
+ 	//recorrer arreglo hacia atras
+  
+ 	for (var i = arreglo0.length-1; i >= 0 ; i--){
+ 		
+ 		console.log("hacia atras: " + i);
+ 	}
+ 	for (var i=0 ; i<arreglo0.length;i++){
+ 		console.log("hacia delante: " + i);
+ 	}
+
+ 	for(i in arreglo0)
+ 		console.log("for in: " + i);
+	}
+
+	</script>
+</body>
+</html>
