@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>09 Save & Restore </title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript" src="js/js.js"></script>
+</head>
+<body>
+	<canvas id="miCanvas">
+	Su navegador no soporta canvas
+	</canvas>
+	<script type="text/javascript">
+	window.addEventListener('load',init);
+
+	function init(){
+		
+		var canvas= document.getElementById('miCanvas');
+		var ctx= canvas.getContext('2d');
+		ctx.strokeStyle='green';
+		dibujarCara(ctx,'red');
+
+		ctx.strokeRect(10,10 , 30,40);
+
+		console.log("cargado");
+	}
+	function dibujarCara(ctx,color){
+		ctx.save();
+		ctx.strokeStyle=color;
+		ctx.beginPath();
+		ctx.arc(50,50,10,a_radianes(0),a_radianes(360),true);
+		ctx.arc(50,50,30,a_radianes(90),a_radianes(180),false);
+		ctx.arc(150,50,10,a_radianes(0),a_radianes(360),false);
+		ctx.arc(50,50,30,a_radianes(90),a_radianes(360),true); 
+
+		ctx.stroke();
+		ctx.restore();
+	}
+		
+
+
+function a_radianes(grados){
+		return(grados*Math.PI)*180;
+		}
+
+	</script>
+</body>
+</html>

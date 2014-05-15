@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>06 Dibujar arcos </title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript" src="js/js.js"></script>
+</head>
+<body>
+	<canvas id="miCanvas">
+	Su navegador no soporta canvas
+	</canvas>
+	<script type="text/javascript">
+	window.addEventListener('load',init);
+
+	function init(){
+		
+		var canvas= document.getElementById('miCanvas');
+		var ctx= canvas.getContext('2d');
+		var x=20, 
+			y=20,
+			radio=10, 
+			anguloInicial=0,
+			AnguloFinal=a_radianes(360), 
+			reloj= false ;
+
+		ctx.arc(x,y,radio,anguloInicial,AnguloFinal,reloj);
+		ctx.arc(130,30,20,45,a_radianes(200),false);
+		//ctx.arc(x,y,radio,anguloInicial,AnguloFinal,reloj);
+		ctx.stroke();
+
+//el angulo hay que pasarlo a radianes por eso esta funcion
+		function a_radianes(grados){
+			return (grados * Math.PI)/180;
+		}
+		console.log("cargado");
+	}
+
+	</script>
+</body>
+</html>

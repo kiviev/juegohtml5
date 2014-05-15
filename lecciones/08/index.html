@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>08 Dibujar Imágenes </title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript" src="js/js.js"></script>
+</head>
+<body>
+	<canvas id="miCanvas">
+	Su navegador no soporta canvas 
+	</canvas>
+	<img src="img.png" id="img" style="display: none;">
+	<script type="text/javascript">
+	window.addEventListener('load',init);
+
+	function init(){
+		
+		var canvas= document.getElementById('miCanvas');
+		var ctx= canvas.getContext('2d');
+		var img= document.getElementById('img');
+
+		//ctx.drawImage(imagen,cordenadaX,cordenadaY); argumentos minimos para que funcione
+		//ctx.drawImage(imagen,cordenadaX,cordenadaY,whidth,heigth); para deformar la imagen p ej
+		ctx.drawImage(img,0,0,100,100);
+
+
+
+		console.log("cargado");
+	}
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>04 modificar el contexto</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript" src="js/js.js"></script>
+</head>
+<body>
+	<canvas id="miCanvas">Su navegador no soporta canvas
+
+	</canvas>
+	<script type="text/javascript">
+	window.addEventListener('load',init);
+
+	function init(){
+		console.log("cargado");
+		var canvas= document.getElementById('miCanvas');
+		var ctx= canvas.getContext('2d');
+
+		ctx.globalAlpha=0.8;
+		ctx.fillStyle= 'red';
+		ctx.fillRect(20,20,50,50);
+
+		ctx.strokeStyle= 'blue';
+
+		ctx.lineWidth=5;
+		ctx.strokeRect(120,50,50,50);
+		console.log(ctx);
+	}
+
+	</script>
+</body>
+</html>

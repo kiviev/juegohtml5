@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>07 Figuras Irregulares </title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" type="text/css" href="css/estilos.css" media="screen" />
+<script type="text/javascript" src="http://code.jquery.com/jquery-1.11.1.js"></script>
+
+<script type="text/javascript" src="js/js.js"></script>
+</head>
+<body>
+	<canvas id="miCanvas">
+	Su navegador no soporta canvas
+	</canvas>
+	<script type="text/javascript">
+	window.addEventListener('load',init);
+
+	function init(){
+		
+		var canvas= document.getElementById('miCanvas');
+		var ctx= canvas.getContext('2d');
+
+		ctx.beginPath();
+		ctx.arc(50,50,10,a_radianes(0),a_radianes(360),true);
+		ctx.arc(50,50,30,a_radianes(90),a_radianes(180),false);
+		ctx.arc(150,50,10,a_radianes(0),a_radianes(360),false);
+		ctx.arc(50,50,30,a_radianes(90),a_radianes(360),true); 
+
+		ctx.stroke();
+
+
+		function a_radianes(grados){
+			return(grados*Math.PI)*180;
+		}
+
+		console.log("cargado");
+	}
+
+	</script>
+</body>
+</html>
