@@ -44,8 +44,8 @@ function dibujarEnemigos(){
 	for(var i in enemigos){
 		var enemigo= enemigos[i];
 		ctx.save();
-		if (enemigo.estado=='vivo'){ctx.fillStyle='red';}
-		if(enemigo.estado == 'muerto'){ctx.fillStyle='black';}
+		if (enemigo.estado='vivo'){ctx.fillStyle='red';}
+		if(enemigo.estado = 'muerto'){ctx.fillStyle='black';}
 		ctx.fillRect(enemigo.x,enemigo.y,enemigo.width,enemigo.height);
 		ctx.restore();
 	}
@@ -115,30 +115,6 @@ function moverNave(){
 		
 	}else{teclado.fire = false}
 }
-//parseInt(Math.random()*5)
-function actualizaEnemigos(){
-	if(juego.estado == 'iniciando'){
-		for(var i =0 ; i<10 ; i++){
-			enemigos.push({
-				x: 10 + (i*60),
-				y: 10,     
-				height: 40,   
-				width:40,  
-				estado:'vivo',
-				contador:0
-			});
-			juego.estado='jugando';
-		}
-	}
-	for(var i in enemigos){
-			var enemigo = enemigos[i];
-			if(!enemigo){continue}
-			if(enemigo && enemigo.estado == 'vivo'){
-				enemigo.contador ++;
-				enemigo.x += Math.sin(enemigo.contador * Math.PI/70)*5;
-				}
-			}
-}
 
 function moverDisparos(){
 	for(var i  in disparos){
@@ -171,10 +147,8 @@ function dibujarDisparos(){
 
 function frameLoop(){
 	moverNave();
-	actualizaEnemigos();
 	moverDisparos();
 	dibujarFondo();
-	dibujarEnemigos();
 	dibujarDisparos();
 	dibujarNave();
 }
