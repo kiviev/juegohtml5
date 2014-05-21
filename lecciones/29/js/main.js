@@ -39,39 +39,16 @@ var enemigos=[];
 
 //Definir variables para las imagenes
 var fondo;
-var imagenes = ['img/fondo.jpg','img/nave.png','img/disparoenemigo.png','img/disparonave.png','img/enemigo.png'];
-//console.log(imagenes.length);
+
 //Definicion de funciones
 function loadMedia(){
-	preloader = new createjs.LoadQueue(true);
-	preloader.onProgess=progresoCarga;
-	cargar();
-	/*fondo = new Image();
+	fondo = new Image();
 	fondo.src='img/fondo.jpg';
 	fondo.onload=function(){
 		var intervalo= window.setInterval(frameLoop,1000/55);
 	}
-*/
+
 }
-
- function cargar(){
- 	console.log("cargar");
- 	while(imagenes.length > 0){
- 		var imagen = imagenes.shift();
- 		console.log(imagen);
- 		preloader.loadFile(imagen);
- 		
- 	}
- }
-
- function progresoCarga(){
- 	console.log(parseInt(preloader.progress*100) + '%');
- 	if (preloader.progress == 1){
- 		var intervalo= window.setInterval(frameLoop,1000/55);
- 		fondo = new Image();
-		fondo.src='img/fondo.jpg';
- 	}console.log(preloader.progress+"xxx");
- }
 
 function dibujarEnemigos(){
 	for(var i in enemigos){
@@ -154,8 +131,6 @@ function moverNave(){
 		}
 		
 	}else{teclado.fire = false}
-
-	//actualizar juego si nave cambia de estado
 	if(nave.estado=='hit'){
 		nave.contador++;
 		if(nave.contador >=20){
@@ -276,7 +251,6 @@ function dibujaTexto(){
 		ctx.font='14pt Arial';
 		ctx.fillText(textoRespuesta.subtitulo,190,250);
 	}
-	ctx.restore();
 }
 
 function actualizarEstadoJuego(){
@@ -288,11 +262,6 @@ function actualizarEstadoJuego(){
 	}
 	if(textoRespuesta.contador >=0){
 		textoRespuesta.contador ++;
-	}
-	if((juego.estado=='perdido' || juego.estado =='victoria') && teclado[82]){
-		juego.estado='iniciando';
-		nave.estado='vivo';
-		textoRespuesta.contador=-1;
 	}
 }
 
@@ -364,23 +333,18 @@ function aleatorio(inferior,superior){
 function frameLoop(){
 	actualizarEstadoJuego();
 	moverNave();
+	actualizaEnemigos();
 	moverDisparos();
-	moverDisparosEnemigos();
 	dibujarFondo();
 	verificarContacto();
-	actualizaEnemigos();
 	dibujarEnemigos();
-	dibujarDisparosEnemigos();
+	dibujarDisparosEnemigos()
+	moverDisparosEnemigos();
 	dibujarDisparos();
 	dibujaTexto();
 	dibujarNave();
 }
 //Ejecucion de funciones
 
-
-window.addEventListener('load',init);
-
-function init(){
-	agregarEventosTeclado();
-	loadMedia();
-}
+agregarEventosTeclado();
+loadMedia();

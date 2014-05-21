@@ -39,39 +39,16 @@ var enemigos=[];
 
 //Definir variables para las imagenes
 var fondo;
-var imagenes = ['img/fondo.jpg','img/nave.png','img/disparoenemigo.png','img/disparonave.png','img/enemigo.png'];
-//console.log(imagenes.length);
+
 //Definicion de funciones
 function loadMedia(){
-	preloader = new createjs.LoadQueue(true);
-	preloader.onProgess=progresoCarga;
-	cargar();
-	/*fondo = new Image();
+	fondo = new Image();
 	fondo.src='img/fondo.jpg';
 	fondo.onload=function(){
 		var intervalo= window.setInterval(frameLoop,1000/55);
 	}
-*/
+
 }
-
- function cargar(){
- 	console.log("cargar");
- 	while(imagenes.length > 0){
- 		var imagen = imagenes.shift();
- 		console.log(imagen);
- 		preloader.loadFile(imagen);
- 		
- 	}
- }
-
- function progresoCarga(){
- 	console.log(parseInt(preloader.progress*100) + '%');
- 	if (preloader.progress == 1){
- 		var intervalo= window.setInterval(frameLoop,1000/55);
- 		fondo = new Image();
-		fondo.src='img/fondo.jpg';
- 	}console.log(preloader.progress+"xxx");
- }
 
 function dibujarEnemigos(){
 	for(var i in enemigos){
@@ -377,10 +354,5 @@ function frameLoop(){
 }
 //Ejecucion de funciones
 
-
-window.addEventListener('load',init);
-
-function init(){
-	agregarEventosTeclado();
-	loadMedia();
-}
+agregarEventosTeclado();
+loadMedia();

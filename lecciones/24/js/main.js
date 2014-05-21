@@ -10,8 +10,7 @@ var nave={
 	x:100,
 	y: canvas.height -100,
 	width: 50,
-	height: 50,
-	contador:0
+	height: 50
 }
 
 //crear objeto juego
@@ -19,59 +18,27 @@ var juego={
 	estado:'iniciando'
 }
 
-// objeto textoRespuesta
-var textoRespuesta = {
-	contador: -1,
-	titulo:'', 
-	subtitulo:''
-}
 //crear el objeto teclado
 var teclado ={}
 
 //array para los disparos
 var disparos=[];
 
-//array para disparos enemigos
-var disparosEnemigos=[];
-
 //crear el array enemigos
-var enemigos=[];  
+var enemigos=[];
 
 //Definir variables para las imagenes
 var fondo;
-var imagenes = ['img/fondo.jpg','img/nave.png','img/disparoenemigo.png','img/disparonave.png','img/enemigo.png'];
-//console.log(imagenes.length);
+
 //Definicion de funciones
 function loadMedia(){
-	preloader = new createjs.LoadQueue(true);
-	preloader.onProgess=progresoCarga;
-	cargar();
-	/*fondo = new Image();
+	fondo = new Image();
 	fondo.src='img/fondo.jpg';
 	fondo.onload=function(){
 		var intervalo= window.setInterval(frameLoop,1000/55);
 	}
-*/
+
 }
-
- function cargar(){
- 	console.log("cargar");
- 	while(imagenes.length > 0){
- 		var imagen = imagenes.shift();
- 		console.log(imagen);
- 		preloader.loadFile(imagen);
- 		
- 	}
- }
-
- function progresoCarga(){
- 	console.log(parseInt(preloader.progress*100) + '%');
- 	if (preloader.progress == 1){
- 		var intervalo= window.setInterval(frameLoop,1000/55);
- 		fondo = new Image();
-		fondo.src='img/fondo.jpg';
- 	}console.log(preloader.progress+"xxx");
- }
 
 function dibujarEnemigos(){
 	for(var i in enemigos){
@@ -99,7 +66,6 @@ function dibujarNave(){
 	ctx.fillStyle='white';
 	ctx.fillRect(nave.x,nave.y,nave.width,nave.height);
 	ctx.restore();
-
 }
 
 function agregarEventosTeclado(){
@@ -154,53 +120,9 @@ function moverNave(){
 		}
 		
 	}else{teclado.fire = false}
-
-	//actualizar juego si nave cambia de estado
-	if(nave.estado=='hit'){
-		nave.contador++;
-		if(nave.contador >=20){
-			nave.contador=0;
-			nave.estado='muerto';
-			juego.estado='perdido';
-			textoRespuesta.titulo='Game Over';
-			textoRespuesta.subtitulo='Presiona tecla R para continuar';
-			textoRespuesta.contador=0;
-		}
-	}
 }
-
-function dibujarDisparosEnemigos(){
-	for(var i in disparosEnemigos){
-		var disparo = disparosEnemigos[i];
-		ctx.save();
-		ctx.fillStyle="yellow";
-		ctx.fillRect(disparo.x, disparo.y, disparo.width,disparo.height);
-		ctx.restore();
-	}
-}
-
-function moverDisparosEnemigos(){
-	for (var i in disparosEnemigos){
-		var disparo = disparosEnemigos[i];
-		disparo.y +=3;
-	}
-	disparosEnemigos=disparosEnemigos.filter(function(disparo){
-		return disparo.y<canvas.height;
-	});
-}
-
+//parseInt(Math.random()*5)
 function actualizaEnemigos(){
-
-	function agregarDisparosEnemigos(enemigo){
-		return{
-			x: enemigo.x+20,
-			y: enemigo.y+20,
-			width: 10,
-			height: 33,
-			contador:0
-		}
-	}
-
 	if(juego.estado == 'iniciando'){
 		for(var i =0 ; i<10 ; i++){
 			enemigos.push({
@@ -220,18 +142,14 @@ function actualizaEnemigos(){
 			if(enemigo && enemigo.estado == 'vivo'){
 				enemigo.contador ++;
 				enemigo.x += Math.sin(enemigo.contador * Math.PI/90)*5;
-/**/
-				if(aleatorio(0,enemigos.length *10)==4){
-					disparosEnemigos.push(agregarDisparosEnemigos(enemigo));
-				}
-	
 				}
 			if(enemigo && enemigo.estado =="hit"){
 				enemigo.contador++;
+				console.log(enemigo.estado);
 				if(enemigo.contador >=20){
 					enemigo.estado="muerto";
 					enemigo.contador=0;
-					
+					console.log(enemigo.estado + "actualizaEnemigos enemigo==hit") ;
 				}
 			}
 			}
@@ -250,50 +168,6 @@ function moverDisparos(){
 	disparos = disparos.filter(function(disparo){
 		return disparo.y > 0;
 	});
-}
-
-function dibujaTexto(){
-	if(textoRespuesta.contador == -1)return;
-	var alpha = textoRespuesta.contador/50.0;
-	if (alpha> 1){
-		for(var i in enemigos){
-			delete enemigos[i];
-		}
-	}
-	ctx.save();
-	ctx.globalAlpha=alpha;
-	if(juego.estado== 'perdido'){
-		ctx.fillStyle='white';
-		ctx.font="Bold 40pt Arial";
-		ctx.fillText(textoRespuesta.titulo,140,200);
-		ctx.font='14pt Arial';
-		ctx.fillText(textoRespuesta.subtitulo,190,250);
-	}
-	if(juego.estado== 'victoria'){
-		ctx.fillStyle='white';
-		ctx.font="Bold 40pt Arial";
-		ctx.fillText(textoRespuesta.titulo,140,200);
-		ctx.font='14pt Arial';
-		ctx.fillText(textoRespuesta.subtitulo,190,250);
-	}
-	ctx.restore();
-}
-
-function actualizarEstadoJuego(){
-	if(juego.estado =='jugando' && enemigos.length == 0){
-		juego.estado= 'victoria';
-		textoRespuesta.titulo ='Derrotaste a los enemigos';
-		textoRespuesta.subtitulo="Presiona la tecla R para reiniciar";
-		textoRespuesta.contador=0;
-	}
-	if(textoRespuesta.contador >=0){
-		textoRespuesta.contador ++;
-	}
-	if((juego.estado=='perdido' || juego.estado =='victoria') && teclado[82]){
-		juego.estado='iniciando';
-		nave.estado='vivo';
-		textoRespuesta.contador=-1;
-	}
 }
 
 function fire(){
@@ -343,44 +217,68 @@ function verificarContacto(){
 			if(hit(disparo,enemigo)){
 				enemigo.estado='hit';
 				enemigo.contador=0;
+				console.log('hubo contacto');
+				console.log(enemigo.estado + "verificarContacto");
 			}
 		}
 	}
-	if(nave.estado=='hit' || nave.estado=='muerto')return;
-	for (var i in disparosEnemigos){
-		var disparo = disparosEnemigos[i];
-		if(hit(disparo,nave)){
-			nave.estado='hit';
-			console.log('hubo contacto');
-		}
-	}
 }
-
-function aleatorio(inferior,superior){
-	var diferencia= superior-inferior;
-	 return Math.floor((Math.random()* diferencia)+inferior);	
-}
-
 function frameLoop(){
-	actualizarEstadoJuego();
 	moverNave();
+	
+	actualizaEnemigos();
 	moverDisparos();
-	moverDisparosEnemigos();
 	dibujarFondo();
 	verificarContacto();
-	actualizaEnemigos();
 	dibujarEnemigos();
-	dibujarDisparosEnemigos();
 	dibujarDisparos();
-	dibujaTexto();
 	dibujarNave();
 }
 //Ejecucion de funciones
 
+agregarEventosTeclado();
+loadMedia();
 
-window.addEventListener('load',init);
 
-function init(){
-	agregarEventosTeclado();
-	loadMedia();
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*window.addEventListener('load',init);
+
+	function init(){
+		
+		var canvas= document.getElementById('game');
+		var ctx= canvas.getContext('2d');
+
+		
+	}
+	*/
